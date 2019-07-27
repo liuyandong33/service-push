@@ -16,7 +16,7 @@ public class TextWebSocketHandler extends org.springframework.web.socket.handler
         Map<String, Object> attributes = session.getAttributes();
         HttpSession httpSession = (HttpSession) attributes.get("httpSession");
         String sessionId = httpSession.getId();
-        WebSocketUtils.removeWebSocketSession("1", "1", "1", sessionId);
+        WebSocketUtils.removeWebSocketSession(sessionId);
     }
 
     @Override
@@ -29,6 +29,6 @@ public class TextWebSocketHandler extends org.springframework.web.socket.handler
         Map<String, Object> attributes = session.getAttributes();
         HttpSession httpSession = (HttpSession) attributes.get("httpSession");
         String sessionId = httpSession.getId();
-        WebSocketUtils.addWebSocketSession("1", "1", "1", sessionId, session);
+        WebSocketUtils.addWebSocketSession(sessionId, session);
     }
 }
