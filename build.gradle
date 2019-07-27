@@ -1,0 +1,109 @@
+group "build.dream"
+version "0.1.0"
+
+buildscript {
+    ext {
+        springBootVersion = "2.0.0.RELEASE"
+        springCloudVersion = "Finchley.RELEASE"
+        projectName = "service-push"
+    }
+    repositories {
+        mavenLocal()
+        maven { url "${mavenPublicRepositoryUrl}" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: "java"
+apply plugin: "scala"
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
+apply plugin: "idea"
+apply plugin: "war"
+apply plugin: "maven-publish"
+
+repositories {
+    mavenLocal()
+    maven { url "${mavenPublicRepositoryUrl}" }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, "seconds"
+}
+
+dependencies {
+//    compile fileTree(include: ["*.jar"], dir: "libs")
+    compile("build.dream:lib-common:0.1.0-SNAPSHOT")
+    compile("org.scala-lang:scala-library:2.12.5")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-devtools")
+    compile("org.springframework.boot:spring-boot-starter-data-redis")
+    compile("org.springframework.boot:spring-boot-starter-websocket")
+    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.0")
+    compile("org.springframework.cloud:spring-cloud-starter-zookeeper-discovery")
+    compile("org.springframework.cloud:spring-cloud-starter-zookeeper-config")
+    compile("com.alibaba:druid:1.1.9")
+    compile("mysql:mysql-connector-java:6.0.6")
+    compile("commons-lang:commons-lang:2.6")
+    compile("com.google.code.gson:gson:2.8.0")
+    compile("commons-codec:commons-codec:1.10")
+    compile("dom4j:dom4j:1.6.1")
+    compile("redis.clients:jedis:2.9.0")
+    compile("net.sf.json-lib:json-lib:2.4:jdk15")
+    compile("com.networknt:json-schema-validator:0.1.13")
+    compile("com.google.zxing:core:3.3.2")
+    compile("org.quartz-scheduler:quartz:2.3.0")
+    compile("org.apache.tomcat.embed:tomcat-embed-jasper")
+    compile("org.apache.poi:poi-ooxml:3.17")
+    compile("com.belerweb:pinyin4j:2.5.1")
+    compile("org.aspectj:aspectjweaver:1.9.2")
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+}
+
+publishing {
+    repositories {
+        if (project.hasProperty("release")) {
+            maven {
+                url "${mavenReleasesRepositoryUrl}"
+                credentials {
+                    username = "${nexusUserName}"
+                    password = "${nexusPassword}"
+                }
+            }
+        } else {
+            maven {
+                url "${mavenSnapshotsRepositoryUrl}"
+                credentials {
+                    username = "${nexusUserName}"
+                    password = "${nexusPassword}"
+                }
+            }
+        }
+    }
+    publications {
+        maven(MavenPublication) {
+            artifacts = ["build/libs/${projectName}-${version}.jar"]
+
+            groupId group
+            if (!project.hasProperty("release")) {
+                version version + "-SNAPSHOT"
+            } else {
+                version version
+            }
+            artifactId projectName
+        }
+    }
+}
+
+bootJar {
+    launchScript {
+    }
+}
