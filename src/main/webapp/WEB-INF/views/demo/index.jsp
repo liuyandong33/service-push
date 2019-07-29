@@ -12,12 +12,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0，minimum-scale=1.0">
     <title>尚米收银软件官网</title>
+    <script type="text/javascript" src="../libraries/jquery/jquery-3.2.1.min.js"></script>
     <script type="text/javascript">
         var websocket = null;
 
         //判断当前浏览器是否支持WebSocket
         if('WebSocket' in window){
-            websocket = new WebSocket("ws://localhost:41008/webSocket?tenantId=1");
+            websocket = new WebSocket("ws://192.168.51.120:41008/webSocket?tenantId=1");
         }
         else{
             alert('Not support websocket')
