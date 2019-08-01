@@ -24,7 +24,6 @@
         var reconnectTimeout = 2000;
         var username = "${username}";
         var password = "${password}";
-        var subTopic = topic + "/p2p/" + clientId;
 
         function MQTTconnect() {
             mqtt = new Paho.MQTT.Client(
