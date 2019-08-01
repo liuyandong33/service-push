@@ -10,7 +10,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0，minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, minimum-scale=1.0">
     <title>测试MQTT</title>
     <script type="text/javascript" src="../libraries/jquery/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js"></script>
@@ -52,11 +53,6 @@
 
         function onConnect() {
             mqtt.subscribe(topic, {qos: 0});
-            // message = new Paho.MQTT.Message("Hello mqtt!!");
-            // message.destinationName = topic;
-            message = new Paho.MQTT.Message("Hello mqtt P2P Msg!!");
-            message.destinationName = subTopic;
-            mqtt.send(message);
         }
 
         function onConnectionLost(response) {
@@ -66,7 +62,7 @@
         function onMessageArrived(message) {
             var topic = message.destinationName;
             var payload = message.payloadString;
-            alert("recv msg : " + topic + "   " + payload);
+            alert("收到消息：topic=" + topic + ",payload=" + payload)
         }
 
         MQTTconnect();

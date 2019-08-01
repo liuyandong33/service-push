@@ -1,5 +1,7 @@
 package build.dream.push.controllers;
 
+import build.dream.common.utils.ApplicationHandler;
+import build.dream.common.utils.LogUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.springframework.stereotype.Controller;
@@ -31,8 +33,9 @@ public class DemoController {
         model.put("useTLS", false);
         model.put("clientId", clientId);
         model.put("username", "Signature|" + accessKeyId + "|" + instanceId);
-        model.put("password", Base64.encodeBase64(HmacUtils.hmacSha1(accessKeySecret, clientId)));
+        model.put("password", Base64.encodeBase64String(HmacUtils.hmacSha1(accessKeySecret, clientId)));
 
+        LogUtils.info(ApplicationHandler.getRemoteAddress() + "@@@" + clientId);
         modelAndView.addAllObjects(model);
         return modelAndView;
     }
