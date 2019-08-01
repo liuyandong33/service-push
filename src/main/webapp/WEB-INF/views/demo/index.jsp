@@ -10,8 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, minimum-scale=1.0">
     <title>测试MQTT</title>
     <script type="text/javascript" src="../libraries/jquery/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js"></script>
@@ -52,6 +51,7 @@
         }
 
         function onConnect() {
+            alert("connect success")
             mqtt.subscribe(topic, {qos: 0});
         }
 
@@ -62,7 +62,8 @@
         function onMessageArrived(message) {
             var topic = message.destinationName;
             var payload = message.payloadString;
-            alert("收到消息：topic=" + topic + ",payload=" + payload)
+            // alert("收到消息：topic=" + topic + ",payload=" + payload)
+            alert(payload);
         }
 
         MQTTconnect();
