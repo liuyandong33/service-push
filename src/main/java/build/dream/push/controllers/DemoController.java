@@ -22,8 +22,8 @@ public class DemoController {
 
         String instanceId = "post-cn-45918p55a02";
         String groupId = "GID-eleme_message";
-        String accessKeyId = "LTAI13Q9MtL90vHh";
-        String accessKeySecret = "xL9bYrZ6MqyzYkAwjwGqQE4NGaDPlt";
+        String accessKeyId = "";
+        String accessKeySecret = "";
         String clientId = groupId + "@@@" + UUID.randomUUID().toString();
 
         Map<String, Object> model = new HashMap<String, Object>();
